@@ -1,0 +1,14 @@
+{
+    "student_first_name": "Sammy",
+    "student_last_name": "Rodgers",
+    "student_user_name": "sam101",
+    "student_password": "password",
+    "student_email": "sam@nomail.com",
+    "student_grade_level": "freshman"
+}
+
+
+{
+    "teacher_user_name": "rteacher",
+    "teacher_password": "password"
+}
