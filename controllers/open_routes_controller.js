@@ -33,6 +33,17 @@ router.post("/course/all", async (req, res) => {
     res.send("500 Error");
   }
 });
+router.post("/courses", async (req, res) => {
+  try {
+    const courses = await pool.query(
+      " SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id"
+    );
+    res.json(courses);
+  } catch (err) {
+    console.log(err);
+    res.send("500 Error");
+  }
+});
 router.post("/class/all", async (req, res) => {
   try {
     const classes = await pool.query(
