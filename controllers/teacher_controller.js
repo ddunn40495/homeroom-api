@@ -104,7 +104,7 @@ GET ROUTE
 ============= */
 //ALL TEACHERS
 
-router.post("/all", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     let teachers = await pool.query("SELECT * FROM teachers");
     res.json(teachers);
@@ -149,7 +149,7 @@ router.post("/assignment/new", async (req, res) => {
     res.send("500 Error");
   }
 });
-router.post("/assignment/inst/all", async (req, res) => {
+router.get("/assignment/inst/all", async (req, res) => {
   const { assignment_id, student_id, kids } = req.body;
 
   try {

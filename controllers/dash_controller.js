@@ -15,7 +15,7 @@ const pool = require("../models/db");
 //              ROUTES
 // =======================================
 
-router.post("/student", authorize, async (req, res) => {
+router.get("/student", authorize, async (req, res) => {
   try {
     const student = await pool.query(
       "SELECT student_id FROM students WHERE student_id = $1",
@@ -29,7 +29,7 @@ router.post("/student", authorize, async (req, res) => {
   }
 });
 
-router.post("/teacher", authorize, async (req, res) => {
+router.get("/teacher", authorize, async (req, res) => {
   try {
     const teacher = await pool.query(
       "SELECT teacher_id FROM teachers WHERE teacher_id = $1",
