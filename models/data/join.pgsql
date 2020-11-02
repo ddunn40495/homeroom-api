@@ -111,4 +111,9 @@ INSERT INTO course_instance(
    SELECT students.student_id FROM students 
 
 
+
    SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id;
+
+
+
+SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id JOIN course_instance ON course_instance.course_id = courses.course_id JOIN teachers ON teachers.teacher_id = course_instance.teacher_id;

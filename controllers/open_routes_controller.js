@@ -37,7 +37,7 @@ router.get("/course/all", async (req, res) => {
 router.get("/class/all", async (req, res) => {
   try {
     const classes = await pool.query(
-      "SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id JOIN course_instance ON course_instance.course_id = courses.course_id"
+      "SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id JOIN course_instance ON course_instance.course_id = courses.course_id JOIN teachers ON teachers.teacher_id = course_instance.teacher_id"
     );
     res.json(classes);
   } catch (err) {
