@@ -67,7 +67,7 @@ INSERT INTO student_courses(
 
 SELECT * FROM students;
 
-SELECT students.student_id, students.student_first_name, courses.course_name, course_instance.course_instance_name, course_instance.course_instance_id, assignments.assignment_id, assignments.assignment_name FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id JOIN assignments ON assignments.course_instance_id = course_instance.course_instance_id;
+SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id JOIN assignments ON assignments.course_instance_id = course_instance.course_instance_id JOIN assignment_instance ON assignment_instance.assignment_id = assignments.assignment_id;
 
      SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id;
 
@@ -93,3 +93,22 @@ INSERT INTO course_instance(
 
 
    SELECT * FROM assignment_instance JOIN assignments ON assignments.assignment_id = assignment_instance.assignment_id JOIN course_instance ON course_instance.course_instance_id = assignments.course_instance_id JOIN student_courses ON student_courses.course_instance_id = course_instance.course_instance_id JOIN students ON students.student_id = student_courses.student_id WHERE course_instance.course_instance_id = 12;
+
+
+   INSERT INTO students(
+	student_first_name, student_last_name, student_user_name, student_password, student_email, student_grade_level)
+	VALUES ('Bob', 'Sanders', 'bsand', 'password', 'bsand@nomail.com', 'freshman'),
+   ('Bob', 'Willaims', 'bwill', 'password', 'bwill@nomail.com', 'freshman'),
+   ('Bob', 'Pope', 'bpope', 'password', 'bpope@nomail.com', 'freshman'),
+   ('Bob', 'Ocho', 'bocho', 'password', 'bocho@nomail.com', 'freshman'),
+   ('Bob', 'Loops', 'Loops', 'password', 'Loops@nomail.com', 'freshman'),
+   ('Bob', 'Miller', 'bmill', 'password', 'bmill@nomail.com', 'freshman'),
+   ('Bob', 'thomas', 'bthomas', 'password', 'bthomas@nomail.com', 'freshman'),
+   ('Bob', 'Stars', 'bstars', 'password', 'bstars@nomail.com', 'freshman');
+
+   SELECT * FROM courses JOIN course_instance ON course_instance.course_id = courses.course_id;
+
+   SELECT students.student_id FROM students 
+
+
+   SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id;

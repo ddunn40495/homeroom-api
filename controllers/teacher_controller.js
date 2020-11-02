@@ -38,7 +38,18 @@ router.post("/", authorize, async (req, res) => {
 /* ===========
 GET ROUTE
 ============= */
-//NEW
+//STUDENTS
+router.get("/students/all", async (req, res) => {
+  try {
+    let students = await pool.query(
+      "SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id"
+    );
+    res.json(students);
+  } catch (err) {
+    console.log(err);
+    res.send("500 Error");
+  }
+});
 
 /* ===========
 POST ROUTE

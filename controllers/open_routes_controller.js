@@ -68,4 +68,15 @@ router.get("/department/all", async (req, res) => {
     res.send("500 Error");
   }
 });
+router.get("/grades/all", async (req, res) => {
+  try {
+    const grades = await pool.query(
+      "SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id JOIN assignments ON assignments.course_instance_id = course_instance.course_instance_id JOIN assignment_instance ON assignment_instance.assignment_id = assignments.assignment_id"
+    );
+    res.json(grades);
+  } catch (err) {
+    console.log(err);
+    res.send("500 Error");
+  }
+});
 module.exports = router;
