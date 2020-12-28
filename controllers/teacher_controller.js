@@ -1,5 +1,5 @@
 //
-//     Teacher      CONTROLLER
+//     TEACHER  CONTROLLER
 //
 // =======================================
 

@@ -34,7 +34,7 @@ JOIN teachers ON teachers.teacher_id = course_instance.teacher_id WHERE students
 
 
 
-
+SELECT * FROM students JOIN student_courses ON students.student_id = student_courses.student_id;
 
 
 

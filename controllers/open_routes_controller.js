@@ -25,7 +25,7 @@ Dashboard Route
 router.get("/course/all", async (req, res) => {
   try {
     const courses = await pool.query(
-      " SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id"
+      " SELECT * FROM department JOIN courses ON courses.department_id = department.department_id"
     );
     res.json(courses);
   } catch (err) {
@@ -37,7 +37,7 @@ router.get("/course/all", async (req, res) => {
 router.get("/class/all", async (req, res) => {
   try {
     const classes = await pool.query(
-      "SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id JOIN course_instance ON course_instance.course_id = courses.course_id JOIN teachers ON teachers.teacher_id = course_instance.teacher_id"
+      "SELECT * FROM department JOIN courses ON courses.department_id = department.department_id JOIN course_instance ON course_instance.course_id = courses.course_id JOIN teachers ON teachers.teacher_id = course_instance.teacher_id"
     );
     res.json(classes);
   } catch (err) {
@@ -50,7 +50,7 @@ router.get("/class/me", async (req, res) => {
   console.log(teacher_id);
   try {
     const classes = await pool.query(
-      "SELECT * FROM departments JOIN courses ON courses.department_id = departments.department_id JOIN course_instance ON course_instance.course_id = courses.course_id WHERE course_instance.teacher_id = $1",
+      "SELECT * FROM department JOIN courses ON courses.department_id = department.department_id JOIN course_instance ON course_instance.course_id = courses.course_id WHERE course_instance.teacher_id = $1",
       [teacher_id]
     );
     res.json(classes);
@@ -61,7 +61,7 @@ router.get("/class/me", async (req, res) => {
 });
 router.get("/department/all", async (req, res) => {
   try {
-    const departments = await pool.query("SELECT * FROM departments");
+    const departments = await pool.query("SELECT * FROM department");
     res.json(departments);
   } catch (err) {
     console.log(err);

@@ -2,10 +2,10 @@ INSERT INTO courses(
 	 course_name, department_id)
 	VALUES ( 'testMath', 1);
 
-     SELECT * FROM departments;
+     SELECT * FROM department;
 
      SELECT * FROM courses;
-     INSERT INTO departments (
+     INSERT INTO department (
 	 department_name)
 	VALUES ('Math'),
      ('Language Arts'),
