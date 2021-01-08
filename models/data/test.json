@@ -29,3 +29,11 @@
     "teacher_password": "password",
     "teacher_email": "bboss@nomail.com",
   }
+
+
+
+  {
+      "course_id": 1,
+      "course_instance_period": 1,
+      "teacher_id": 2
+  }

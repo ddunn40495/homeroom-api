@@ -1,4 +1,4 @@
-//
+// =============================
 //     TEACHER  CONTROLLER
 //
 // =======================================
@@ -50,9 +50,21 @@ router.get("/students/all", async (req, res) => {
     res.send("500 Error");
   }
 });
+/* Get All Teachers */
 
+//ALL TEACHERS
+
+router.get("/all", async (req, res) => {
+  try {
+    let teachers = await pool.query("SELECT * FROM teachers");
+    res.json(teachers);
+  } catch (err) {
+    console.log(err);
+    res.send("500 Error");
+  }
+});
 /* ===========
-POST ROUTE
+Course Routes
 ============= */
 //CREATE NEW COURSE
 
@@ -74,8 +86,8 @@ router.post("/course/new", async (req, res) => {
     res.send("500 Error");
   }
 });
-
-//CREATE NEW COURSE
+/* Course Instance Routes */
+//CREATE NEW COURSE INSTANCE
 
 router.post("/class/new", async (req, res) => {
   const { course_id, course_instance_period, teacher_id } = req.body;
@@ -99,7 +111,7 @@ router.post("/class/new", async (req, res) => {
       [course_id, course_instance_period, teacher_id, course_instance_name]
     );
 
-    console.log(newClass.rows);
+    console.log(newClass.rows[0]);
 
     let classList = await pool.query("SELECT * FROM course_instance");
     res.json(classList);
@@ -110,17 +122,51 @@ router.post("/class/new", async (req, res) => {
     res.send("500 Error");
   }
 });
-/* ===========
-GET ROUTE
-============= */
-//ALL TEACHERS
 
-router.get("/all", async (req, res) => {
+/* ===========
+  PUT ROUTE
+  ============= */
+//UPDATE
+router.put("/class/:id", async (req, res) => {
+  const { course_instance_period, teacher_id, course_instance_name } = req.body;
   try {
-    let teachers = await pool.query("SELECT * FROM teachers");
-    res.json(teachers);
+    let updatedClass = await pool.query(
+      "UPDATE course_instance SET course_instance_period = $1, teacher_id = $2, course_instance_name = $3 WHERE course_instance_id = $4 RETURNING *",
+      [course_instance_period, teacher_id, course_instance_name, req.params.id]
+    );
+
+    console.log(updatedClass.rows[0]);
+
+    let classList = await pool.query("SELECT * FROM course_instance");
+    res.json(classList);
   } catch (err) {
-    console.log(err);
+    if (err) {
+      // console.log(err);
+    }
+    res.send("500 Error");
+  }
+});
+
+/* ===========
+  DELETE ROUTE
+  ============= */
+//DELETE
+
+router.delete("/class/:id", async (req, res) => {
+  try {
+    let deletedClass = await pool.query(
+      "DELETE FROM course_instance WHERE course_instance_id = $1 RETURNING *",
+      [req.params.id]
+    );
+
+    console.log(deletedClass.rows[0]);
+
+    let classList = await pool.query("SELECT * FROM course_instance");
+    res.json(classList);
+  } catch (err) {
+    if (err) {
+      // console.log(err);
+    }
     res.send("500 Error");
   }
 });

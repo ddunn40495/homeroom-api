@@ -66,7 +66,7 @@ router.post("/register/student", validStudentInfo, async (req, res) => {
     );
 
     const token = makeToken(newStudent.rows[0].student_id);
-    console.log(newStudent);
+    console.log(newStudent.rows[0]);
     return res.json({ token });
   } catch (err) {
     if (!err) {
@@ -115,7 +115,7 @@ router.post("/register/teacher", validTeacherInfo, async (req, res) => {
         teacher_email,
       ]
     );
-    console.log(newTeacher);
+    console.log(newTeacher.rows[0]);
     const token = makeToken(newTeacher.rows[0].teacher_id);
 
     return res.json({ token });
