@@ -14,7 +14,7 @@ JOIN course_instance ON course_instance.course_instance_id = courses.course_id;
 
 -- need to add where clause using params
 
-
+DELETE FROM student_courses;
 
 SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id
 JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id
@@ -36,8 +36,9 @@ JOIN teachers ON teachers.teacher_id = course_instance.teacher_id WHERE students
 
 SELECT * FROM students JOIN student_courses ON students.student_id = student_courses.student_id;
 
+/* Delete Student From Class */
 
-
+DELETE FROM student_courses WHERE student_courses.student_id = 2 AND student_courses.course_instance_id = 1;
 
 
 

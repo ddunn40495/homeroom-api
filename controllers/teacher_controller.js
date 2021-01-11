@@ -9,6 +9,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../models/db");
+const format = require("pg-format");
 const authorize = require("../middleware/authorization");
 // =======================================
 //              DATABASE
@@ -115,6 +116,57 @@ router.post("/class/new", async (req, res) => {
 
     let classList = await pool.query("SELECT * FROM course_instance");
     res.json(classList);
+  } catch (err) {
+    if (err) {
+      // console.log(err);
+    }
+    res.send("500 Error");
+  }
+});
+
+//ADD STUDENTS
+
+router.post("/students/add/:id", async (req, res) => {
+  const { students } = req.body;
+  try {
+    let studentQuery = format(
+      "INSERT INTO student_courses (student_id, course_instance_id) VALUES %L RETURNING *",
+      students
+    );
+    console.log(students);
+    let newStudents = await pool.query(studentQuery);
+    console.log(studentQuery);
+    /*  console.log(newStudents.rows); */
+
+    let classRoster = await pool.query(
+      " SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id JOIN department ON department.department_id = courses.department_id WHERE course_instance.course_instance_id = $1",
+      [req.params.id]
+    );
+    res.json(classRoster.rows);
+  } catch (err) {
+    if (err) {
+      // console.log(err);
+    }
+    res.send("500 Error");
+  }
+});
+
+//DELETE Students
+
+router.delete("/students/delete/:student/:courseInt", async (req, res) => {
+  try {
+    let deletedStudent = await pool.query(
+      "DELETE FROM student_courses WHERE student_courses.student_id = $1 AND student_courses.course_instance_id = $2 RETURNING *",
+      [req.params.student, req.params.courseInt]
+    );
+
+    console.log(deletedStudent.rows);
+
+    let classRoster = await pool.query(
+      " SELECT * FROM students JOIN student_courses ON student_courses.student_id = students.student_id JOIN course_instance ON course_instance.course_instance_id = student_courses.course_instance_id JOIN courses ON courses.course_id = course_instance.course_id JOIN department ON department.department_id = courses.department_id WHERE course_instance.course_instance_id = $1",
+      [req.params.courseInt]
+    );
+    res.json(classRoster.rows);
   } catch (err) {
     if (err) {
       // console.log(err);

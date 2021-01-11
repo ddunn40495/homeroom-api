@@ -37,3 +37,7 @@
       "course_instance_period": 1,
       "teacher_id": 2
   }
+
+  {
+      "students":[[1, 1], [2, 1]]
+  }
